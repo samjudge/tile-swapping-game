@@ -16,6 +16,9 @@ public class TileSelector : MonoBehaviour
         return Instance;
     }
 
+    void Update(){
+    }
+
     public void Select(TileContainer TileContainer){
         SelectedContainer = TileContainer;
         transform.localPosition = TileContainer.transform.localPosition;

@@ -27,14 +27,13 @@ public class Tile : MonoBehaviour
     
     public void Delete(){
         Destroy(gameObject);
-        TileManagerService.GetInstance().PushTiles();
     }
 
     public IEnumerator TransitionTo(Vector3 pos, After then){
         float tCurrent = 0;
-        float tMax = 1;
+        float tMax = 0.1f;
         while(tCurrent < tMax){
-            transform.position = Vector2.Lerp(
+            transform.position = Vector3.Lerp(
                 transform.position,
                 pos,
                 tCurrent / tMax

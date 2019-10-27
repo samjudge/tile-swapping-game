@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TileContainer : MonoBehaviour, IPointerClickHandler
+public class TileContainer : MonoBehaviour, IDragHandler, IBeginDragHandler, IPointerEnterHandler
 {
     public Tile Tile;
 
@@ -24,61 +24,74 @@ public class TileContainer : MonoBehaviour, IPointerClickHandler
 
     private void SwapTiles(TileContainer A, TileContainer B) {
         TileManagerService tileManager = TileManagerService.GetInstance();
-        tileManager.SwapTilesInConitainer(
+        tileManager.SwapTilesInContainer(
             A,
             B
         );
     }
 
-    public void OnPointerClick(PointerEventData eventData) {
+    public void OnBeginDrag(PointerEventData beginDrag) {
+        if(TileManagerService.GetInstance().IsLocked) return;
+        TileSelector selector = TileSelector.GetInstance();
+        selector.Unselect();
+        selector.Select(this);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData) {
+        if(TileManagerService.GetInstance().IsLocked) return;
         TileSelector selector = TileSelector.GetInstance();
         if(selector.IsTileSelected() && selector.GetSelected() != this){
             TileContainer tileB = selector.GetSelected();
-            TransitionToThenSwap(selector.GetSelected(), tileB);
+            TransitionToThenSwap(this, tileB);
             selector.Unselect();
-        } else {
-            selector.Unselect();
-            selector.Select(this);
         }
     }
+
+    public void OnDrag(PointerEventData eventData) { }
 
     public bool IsTransitioning = false;
 
     public void TransitionToThenSwap(TileContainer tileA, TileContainer tileB) {
-        IsTransitioning = true;
-        bool tileATransitionComplete = false;
-        bool tileBTransitionComplete = false;
-        if(tileA.Tile != null){
-            StartCoroutine(tileA.Tile.TransitionTo(
-                tileB.transform.position,
-                delegate() {
-                    tileATransitionComplete = true;
-                    if(tileATransitionComplete && tileBTransitionComplete) {
-                        SwapTiles(tileA, tileB);
-                        IsTransitioning = false;
+        if(TileManagerService
+            .GetInstance()
+            .AreTilesAdjacent(tileA, tileB)
+        ) {
+            IsTransitioning = true;
+            bool tileATransitionComplete = false;
+            bool tileBTransitionComplete = false;
+            if(tileA.Tile != null){
+                StartCoroutine(tileA.Tile.TransitionTo(
+                    tileB.transform.position,
+                    delegate() {
+                        SfxManagerService.GetInstance().PlayTileDing();
+                        tileATransitionComplete = true;
+                        if(tileATransitionComplete && tileBTransitionComplete) {
+                            SwapTiles(tileA, tileB);
+                            IsTransitioning = false;
+                        }
                     }
-                }
-            ));
-        } else {
-            tileATransitionComplete = true;
-        }
-        if(tileB.Tile != null){
-            StartCoroutine(tileB.Tile.TransitionTo(
-                tileA.transform.position,
-                delegate() {
-                    tileBTransitionComplete = true;
-                    if(tileATransitionComplete && tileBTransitionComplete) {
-                        SwapTiles(tileA, tileB);
-                        IsTransitioning = false;
+                ));
+            } else {
+                tileATransitionComplete = true;
+            }
+            if(tileB.Tile != null){
+                StartCoroutine(tileB.Tile.TransitionTo(
+                    tileA.transform.position,
+                    delegate() {
+                        tileBTransitionComplete = true;
+                        if(tileATransitionComplete && tileBTransitionComplete) {
+                            SwapTiles(tileA, tileB);
+                            IsTransitioning = false;
+                        }
                     }
-                }
-            ));
-        } else {
-            tileBTransitionComplete = true;
-        }
-        if(tileATransitionComplete && tileBTransitionComplete) {
-            SwapTiles(tileA, tileB);
-            IsTransitioning = false;
+                ));
+            } else {
+                tileBTransitionComplete = true;
+            }
+            if(tileATransitionComplete && tileBTransitionComplete) {
+                SwapTiles(tileA, tileB);
+                IsTransitioning = false;
+            }
         }
     }
 
