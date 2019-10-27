@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4730558186429228237}
   - component: {fileID: -103329118574798861}
   m_Layer: 5
-  m_Name: SoldierTile
+  m_Name: SwordTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 47, y: 47}
-  m_SizeDelta: {x: 54, y: 54}
+  m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &797466938326728693
 CanvasRenderer:
@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -91,7 +91,7 @@ MonoBehaviour:
   Image: {fileID: 2099806993147137161}
   Animator: {fileID: -103329118574798861}
   Sprite: {fileID: 184950751378207249, guid: 9a2d0862cbd518b4897d873d286dc88d, type: 3}
-  Name: Soldier
+  Name: Sword
 --- !u!95 &-103329118574798861
 Animator:
   serializedVersion: 3
