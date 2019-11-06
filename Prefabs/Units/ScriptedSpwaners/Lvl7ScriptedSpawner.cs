@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class Lvl5ScriptedSpawner : ScriptedSpawner
+public class Lvl7ScriptedSpawner : ScriptedSpawner
 {
     [SerializeField]
     private UnitSpawner Spawner;
@@ -21,7 +21,7 @@ public class Lvl5ScriptedSpawner : ScriptedSpawner
     }
 
     public override void StartSpawning() {
-        LevelManagerService.GetInstance().SetTimeRemaining(180);
+        LevelManagerService.GetInstance().SetTimeRemaining(360);
         SpawnRoutine = StartCoroutine(SpawnLoop());
     }
 
@@ -30,12 +30,21 @@ public class Lvl5ScriptedSpawner : ScriptedSpawner
     }
 
     private IEnumerator SpawnLoop() {
-        float relativeScore = 1f;
-        relativeScore = GroundClaimsService.GetInstance().GetRightTeamCoverageScore() / 100;
-        yield return new WaitForSeconds(0.3f + ((15f * relativeScore) * 3f));
+        yield return new WaitForSeconds(3f);
         Spawner.SpawnSoldier();
-        Spawner.SpawnArcher();
+        yield return new WaitForSeconds(3f);
         Spawner.SpawnWizard();
+        yield return new WaitForSeconds(3f);
+        Spawner.SpawnArcher();
+        yield return new WaitForSeconds(1f);
+        List<GameObject> Units = Spawner.GetAllSpawnedUnits();
+        foreach(GameObject u in Units) {
+            if(u != null) {
+                if(u.transform.localScale.x < 2f){
+                    StartCoroutine(SpellEffectsService.GetInstance().EmbiggenEffect(u));
+                }
+            }
+        }
         SpawnRoutine = StartCoroutine(SpawnLoop());
     }
 

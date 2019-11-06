@@ -13,13 +13,17 @@ public class ArcherBehaviour : JumpingUnit
     private SpriteRenderer Renderer;
     [SerializeField]
     private Animator Animation;
+    [SerializeField]
+    private FreezableUnit Freezable;
 
     public override void Update() {
         base.Update();
         cFireTimer += Time.deltaTime;
         if(cFireTimer > FireTimer) {
             cFireTimer = 0f;
-            BeginAttack();
+            if(!Freezable.GetIsFrozen()) {
+                BeginAttack();
+            }
         }
     }
 

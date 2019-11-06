@@ -10,6 +10,9 @@ public class WizardBehaviour : JumpingUnit
     private Animator Animation;
     [SerializeField]
     private WizardSpell Fireball;
+    public Vector2 FireballSpellScale = new Vector3(1f,1f,1f);
+    [SerializeField]
+    private FreezableUnit Freezable;
     private float FireTimer = 8f;
     private float cFireTimer = 0f;
 
@@ -18,7 +21,9 @@ public class WizardBehaviour : JumpingUnit
         cFireTimer += Time.deltaTime;
         if(cFireTimer > FireTimer) {
             cFireTimer = 0f;
-            ShootFireball();
+            if(!Freezable.GetIsFrozen()){
+                ShootFireball();
+            }
         }
     }
 
@@ -30,6 +35,12 @@ public class WizardBehaviour : JumpingUnit
             5f
         );
         Projectile.transform.SetParent(transform.parent, true);
+        Projectile.transform.localScale = FireballSpellScale;
+        Projectile.GetComponentInChildren<TrailRenderer>().widthCurve = new AnimationCurve(
+            new Keyframe(0f, 0.1f * FireballSpellScale.y),
+            new Keyframe(0.5f, 0.1f * FireballSpellScale.y),
+            new Keyframe(1f, 0f)
+        );
         Projectile.SetOwner(gameObject);
         var settings = Projectile.GetComponentInChildren<ParticleSystem>().main;
         var gradient = new Gradient();
@@ -57,7 +68,7 @@ public class WizardBehaviour : JumpingUnit
         );
         Projectile.Shoot(
             new Vector3(
-                Body.velocity.x > 0 ? 1f : -1f,
+                (LayerMask.LayerToName(gameObject.layer) == "PlayerUnits") ? 1f : -1f,
                 0f,
                 0f
             ),

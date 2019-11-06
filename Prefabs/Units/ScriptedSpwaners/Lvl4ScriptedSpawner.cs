@@ -33,15 +33,14 @@ public class Lvl4ScriptedSpawner : ScriptedSpawner
         Spawner.SpawnWizard();
         Spawner.SpawnWizard();
         Spawner.SpawnWizard();
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(4f);
         Spawner.SpawnSoldier();
         Spawner.SpawnSoldier();
-        Spawner.SpawnSoldier();
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(4.5f);
         Spawner.SpawnArcher();
         Spawner.SpawnArcher();
         Spawner.SpawnArcher();
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(4.5f);
         SpawnRoutine = StartCoroutine(SpawnLoop());
     }
 

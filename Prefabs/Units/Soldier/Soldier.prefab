@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5940184358948156976}
   - component: {fileID: 2377431224963791856}
   - component: {fileID: 2655247384130210741}
+  - component: {fileID: 2566618144477972526}
   m_Layer: 0
   m_Name: Soldier
   m_TagString: Untagged
@@ -148,11 +149,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Body: {fileID: 3384686001275540258}
   JumpDirection: {x: 0, y: 0, z: 0}
-  GroundClaimsService: {fileID: 0}
+  AllowMovement: 1
+  GroundCheckDistance: 0.3
+  JumpForce: {x: 0.1, y: 0.5}
   Animation: {fileID: 2377431224963791856}
   Weapon: {fileID: 6720217406121647537}
   AttackReach: 0.35
   HitDamage: 2
+  Freezable: {fileID: 2566618144477972526}
 --- !u!114 &5940184358948156976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,6 +205,23 @@ MonoBehaviour:
   TextPrefab: {fileID: 2692951315326250497, guid: 662ed3a904528374c9c71911c3d05862,
     type: 3}
   Canvas: {fileID: 0}
+--- !u!114 &2566618144477972526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3384686001275540287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 707e780a3b604ba46a2e4a4fc167a43f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Body: {fileID: 3384686001275540258}
+  Animator: {fileID: 2377431224963791856}
+  Sprite: {fileID: 3384686001275540257}
+  TextEmitter: {fileID: 2655247384130210741}
+  JumpingUnit: {fileID: 3384686001275540260}
 --- !u!1 &6940995437126573373
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,5 +291,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.125, y: 0.125}
+  m_Size: {x: 0.125, y: 0.3}
   m_EdgeRadius: 0

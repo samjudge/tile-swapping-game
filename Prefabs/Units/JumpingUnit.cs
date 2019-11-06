@@ -9,24 +9,42 @@ abstract public class JumpingUnit : MonoBehaviour
     private bool IsMidJump = false;
     [SerializeField]
     public Vector3 JumpDirection;
-    [SerializeField]
-    public GroundClaimsService GroundClaimsService;
+    public bool AllowMovement = true;
+    public float GroundCheckDistance = 0.3f;
+    public Vector2 JumpForce = new Vector2(0.1f, 0.5f);
 
     public virtual void Update() {
         if(IsMidJump && IsDecending()) {
             IsMidJump = false;
         }
-        if(RayCasts.IsGroundTileBelowBy(transform, 0.3f) && !IsMidJump) {
+        if(RayCasts.IsGroundTileBelowBy(transform, GroundCheckDistance) && !IsMidJump) {
             if(JumpDirection.x >= 0) {
-                GroundClaimsService.LeftTeamClaimUpdate(transform.localPosition.x);
+                GroundClaimsService.GetInstance().LeftTeamClaimUpdate(transform.localPosition.x);
             } else {
-                GroundClaimsService.RightTeamClaimUpdate(transform.localPosition.x);
+                GroundClaimsService.GetInstance().RightTeamClaimUpdate(transform.localPosition.x);
             }
-            Jump();
+            if(AllowMovement) Jump();
         }
         //put the breaks on if moving too fast
-        if(Mathf.Abs(Body.velocity.x) > 0.1f){
-            Body.AddForce(-JumpDirection.normalized * 0.1f);
+        if(Mathf.Abs(Body.velocity.x) > JumpForce.x){
+            if(JumpDirection.normalized.x > 0){
+                if(Body.velocity.x > 0) {
+                    //slow down
+                    Body.AddForce(-JumpDirection.normalized * JumpForce.x);
+                } else {
+                    //speed up
+                    Body.AddForce(JumpDirection.normalized * JumpForce.x);
+                }
+            } else {
+                if(Body.velocity.x < 0) {
+                    //slow down
+                    Body.AddForce(-JumpDirection.normalized * JumpForce.x);
+                } else {
+                    //speed up
+                    Body.AddForce(JumpDirection.normalized * JumpForce.x);
+                }
+            }
+            
         }
     }
 
@@ -39,9 +57,9 @@ abstract public class JumpingUnit : MonoBehaviour
 
     protected void Jump() {
         IsMidJump = true;
-        Body.AddForce(Vector2.up * 0.5f, ForceMode2D.Impulse);
-        if(Mathf.Abs(Body.velocity.x) < 0.1f){
-            Body.AddForce(JumpDirection.normalized * 0.1f, ForceMode2D.Impulse);
+        Body.AddForce(Vector2.up * JumpForce.y, ForceMode2D.Impulse);
+        if(Mathf.Abs(Body.velocity.x) < JumpForce.x){
+            Body.AddForce(JumpDirection.normalized * JumpForce.x, ForceMode2D.Impulse);
         }
     }
 }

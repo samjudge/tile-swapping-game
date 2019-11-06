@@ -87,7 +87,6 @@ public class TileManagerService : MonoBehaviour
                 if(!removedTileCounts.ContainsKey(ttr.Name)) {
                     removedTileCounts[ttr.Name] = 0;
                 }
-                Debug.Log(ttr.Name);
                 removedTileCounts[ttr.Name]++;
                 Vector2 ttrc = GetTileCoordinates(ttr);
                 TileMap[(int)ttrc.y][(int)ttrc.x].Tile.Remove();
@@ -96,7 +95,8 @@ public class TileManagerService : MonoBehaviour
             if(removedTileCounts.ContainsKey("Sword") ||
                removedTileCounts.ContainsKey("Arrow") ||
                removedTileCounts.ContainsKey("Thunder") ||
-               removedTileCounts.ContainsKey("Shield")
+               removedTileCounts.ContainsKey("Shield") ||
+               removedTileCounts.ContainsKey("Void")
             ) {
                 SfxManagerService.GetInstance().PlayTilePop();
             }
@@ -124,7 +124,7 @@ public class TileManagerService : MonoBehaviour
             if(removedTileCounts.ContainsKey("Void")) {
                 while(removedTileCounts["Void"] >= 3) {
                     if(LevelManagerService.GetInstance().CurrentPlayerMana < 3) {
-                        LevelManagerService.GetInstance().CurrentPlayerMana += 1;
+                        StartCoroutine(IncreaseManaByXOverT(1, 0.5f));
                     }
                     removedTileCounts["Void"] -= 3;
                 }
@@ -145,6 +145,19 @@ public class TileManagerService : MonoBehaviour
                 }
             }
             StartCoroutine(PushTiles());
+        }
+    }
+
+    private IEnumerator IncreaseManaByXOverT(float amount, float time) {
+        float cTime = 0f;
+        while(cTime < time) {
+            if(LevelManagerService.GetInstance().CurrentPlayerMana >= 3) {
+                break;
+            }
+            yield return new WaitForEndOfFrame();
+            LevelManagerService.GetInstance().CurrentPlayerMana += 
+                amount * ( Time.deltaTime / time );
+            cTime += Time.deltaTime;
         }
     }
 

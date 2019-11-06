@@ -31,7 +31,7 @@ public class Lvl1ScriptedSpawner : ScriptedSpawner
 
     private IEnumerator SpawnLoop() {
         Spawner.SpawnSoldier();
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(5f);
         SpawnRoutine = StartCoroutine(SpawnLoop());
     }
 

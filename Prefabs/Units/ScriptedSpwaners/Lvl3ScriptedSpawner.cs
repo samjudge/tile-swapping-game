@@ -32,12 +32,12 @@ public class Lvl3ScriptedSpawner : ScriptedSpawner
     private IEnumerator SpawnLoop() {
         Spawner.SpawnSoldier();
         Spawner.SpawnWizard();
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(4f);
         Spawner.SpawnWizard();
         Spawner.SpawnSoldier();
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3f);
         Spawner.SpawnArcher();
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3f);
         SpawnRoutine = StartCoroutine(SpawnLoop());
     }
 
