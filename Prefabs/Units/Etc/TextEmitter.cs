@@ -13,6 +13,14 @@ public class TextEmitter : MonoBehaviour
     [SerializeField]
     public Canvas Canvas;
 
+    public Text MakeText(string Text, Color c){
+        Text t = Instantiate(TextPrefab);
+        t.color = c;
+        t.text = Text;
+        t.transform.SetParent(Canvas.transform);
+        return t;
+    }
+
     public Text MakeText(string Text){
         Text t = Instantiate(TextPrefab);
         t.text = Text;

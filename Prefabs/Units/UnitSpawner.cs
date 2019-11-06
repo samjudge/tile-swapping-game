@@ -69,7 +69,6 @@ public class UnitSpawner : MonoBehaviour
         newUnit.layer = LayerMask.NameToLayer(SpawnedUnitCollisionTag);
         newUnit.GetComponent<SpriteRenderer>().color = UnitColor;
         newUnit.GetComponent<JumpingUnit>().JumpDirection = JumpDirection;
-        newUnit.GetComponent<JumpingUnit>().GroundClaimsService = GroundClaimsService;
         newUnit.GetComponent<DamagableUnit>().TextEmitter.Canvas = TextEmitterCanvas;
         newUnit.transform.rotation = Quaternion.Euler(0, UnitRotation, 0);
         newUnit.GetComponent<Rigidbody2D>().AddForce(

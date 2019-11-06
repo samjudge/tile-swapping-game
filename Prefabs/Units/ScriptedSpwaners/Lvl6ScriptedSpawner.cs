@@ -34,19 +34,19 @@ public class Lvl6ScriptedSpawner : ScriptedSpawner
     private IEnumerator SpawnLoop() {
         float relativeScore = (360 - LevelManagerService.GetInstance().GetTimeRemaining()) / 360;
         if(LevelManagerService.GetInstance().GetTimeRemaining() < 300) {
-            if(SpawnTime > 3f) {
+            if(SpawnTime > 2f) {
                 LevelManagerService.GetInstance().SplashLabel.text = "Speeding Up!";
                 yield return new WaitForSeconds(3);
                 LevelManagerService.GetInstance().SplashLabel.text = "";
-                SpawnTime = 3f;
+                SpawnTime = 2f;
             }
         }
         if(LevelManagerService.GetInstance().GetTimeRemaining() < 240) {
-            if(SpawnTime > 2f) {
+            if(SpawnTime > 1.5f) {
                 LevelManagerService.GetInstance().SplashLabel.text = "Speeding Up!!";
                 yield return new WaitForSeconds(3);
                 LevelManagerService.GetInstance().SplashLabel.text = "";
-                SpawnTime = 2f;
+                SpawnTime = 1.5f;
             }
         }
         if(LevelManagerService.GetInstance().GetTimeRemaining() < 180) {

@@ -31,6 +31,7 @@ public class Lvl2ScriptedSpawner : ScriptedSpawner
 
     private IEnumerator SpawnLoop() {
         Spawner.SpawnSoldier();
+        Spawner.SpawnSoldier();
         yield return new WaitForSeconds(4f);
         Spawner.SpawnArcher();
         yield return new WaitForSeconds(4f);

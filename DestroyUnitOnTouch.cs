@@ -13,5 +13,9 @@ public class DestroyUnitOnTouch : MonoBehaviour
         if(a != null) {
             Destroy(a.gameObject);
         }
+        Fireball f = collider.gameObject.GetComponent<Fireball>();
+        if(f != null) {
+            Destroy(f.gameObject);
+        }
    }
 }

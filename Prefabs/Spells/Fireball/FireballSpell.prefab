@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7063070413782867997}
   - component: {fileID: 7063070413782867998}
   - component: {fileID: 3110869334788770260}
+  - component: {fileID: 7563433765934620127}
   m_Layer: 0
   m_Name: FireballSpell
   m_TagString: Untagged
@@ -92,7 +93,22 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.2
+--- !u!114 &7563433765934620127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7063070413782867984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f88c0c564c80d348a2e584741c0d030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Body: {fileID: 7063070413782867997}
+  FireballShrapnelPrefab: {fileID: -3950970768200234928, guid: e233a62576efd364f9d0fa5546f0f05b,
+    type: 3}
 --- !u!1 &7063070413865121705
 GameObject:
   m_ObjectHideFlags: 0

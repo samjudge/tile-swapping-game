@@ -12,10 +12,14 @@ public class SoldierBehaviour : JumpingUnit
     public float AttackReach;
     [SerializeField]
     public float HitDamage = 3f;
+    [SerializeField]
+    private FreezableUnit Freezable;
 
     public override void Update(){
         base.Update();
-        AttackNearbyEnemies();
+        if(!Freezable.GetIsFrozen()) {
+            AttackNearbyEnemies();
+        }
     }
 
     public void AttackNearbyEnemies() {

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5940184358948156976}
   - component: {fileID: 2655247384130210741}
   - component: {fileID: 7719113833198502613}
+  - component: {fileID: 2480964932258988523}
   - component: {fileID: 2518627800577272717}
   m_Layer: 0
   m_Name: Wizard
@@ -176,11 +177,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Body: {fileID: 3384686001275540258}
   JumpDirection: {x: 0, y: 0, z: 0}
-  GroundClaimsService: {fileID: 0}
+  AllowMovement: 1
+  GroundCheckDistance: 0.3
+  JumpForce: {x: 0.1, y: 0.5}
   Renderer: {fileID: 3384686001275540257}
   Animation: {fileID: 2518627800577272717}
   Fireball: {fileID: 1635851567756716322, guid: 3b7dc110ce0db1b4aaf5ae33894b8d5e,
     type: 3}
+  Freezable: {fileID: 2480964932258988523}
+--- !u!114 &2480964932258988523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3384686001275540287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 707e780a3b604ba46a2e4a4fc167a43f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Body: {fileID: 3384686001275540258}
+  Animator: {fileID: 2518627800577272717}
+  Sprite: {fileID: 3384686001275540257}
+  TextEmitter: {fileID: 2655247384130210741}
+  JumpingUnit: {fileID: 7719113833198502613}
 --- !u!95 &2518627800577272717
 Animator:
   serializedVersion: 3

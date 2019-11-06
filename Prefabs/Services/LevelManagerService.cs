@@ -44,6 +44,8 @@ public class LevelManagerService : MonoBehaviour
     }
 
     void Update(){
+        CurrentPlayerMana += Time.deltaTime / 10f;
+        if(CurrentPlayerMana >= 3) CurrentPlayerMana = 3;
         ManaBar.fillAmount = CurrentPlayerMana / 3f;
     }
 

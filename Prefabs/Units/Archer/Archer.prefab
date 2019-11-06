@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8250350103681190753}
   - component: {fileID: 2377431224963791856}
   - component: {fileID: 5389126960757176213}
+  - component: {fileID: -4734857385955350543}
   m_Layer: 0
   m_Name: Archer
   m_TagString: Untagged
@@ -147,11 +148,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Body: {fileID: 3384686001275540258}
   JumpDirection: {x: 0, y: 0, z: 0}
-  GroundClaimsService: {fileID: 0}
+  AllowMovement: 1
+  GroundCheckDistance: 0.3
+  JumpForce: {x: 0.1, y: 0.5}
   ProjectilePrefab: {fileID: 7096236385303596454, guid: 7e2a939362abe8e46b41899c01906edd,
     type: 3}
   Renderer: {fileID: 3384686001275540257}
   Animation: {fileID: 2377431224963791856}
+  Freezable: {fileID: -4734857385955350543}
 --- !u!114 &8250350103681190753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,3 +204,20 @@ MonoBehaviour:
   TextPrefab: {fileID: 2692951315326250497, guid: 662ed3a904528374c9c71911c3d05862,
     type: 3}
   Canvas: {fileID: 0}
+--- !u!114 &-4734857385955350543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3384686001275540287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 707e780a3b604ba46a2e4a4fc167a43f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Body: {fileID: 3384686001275540258}
+  Animator: {fileID: 2377431224963791856}
+  Sprite: {fileID: 3384686001275540257}
+  TextEmitter: {fileID: 5389126960757176213}
+  JumpingUnit: {fileID: 2831913251645722063}
